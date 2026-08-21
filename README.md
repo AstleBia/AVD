@@ -6,4 +6,6 @@ Repositório para as atividades e projeto da disciplina de AVD
 - [ ] Avaliação
 - [ ] Implantação
 
-[Documentação] (./Documentação)
+
+## Documentação
+[Entendimento de Negócio e Dados](./Documentação/Documentação_AVD.pdf)
