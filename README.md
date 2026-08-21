@@ -20,8 +20,6 @@ O projeto utiliza uma base pública de **Solicitações de Atendimento do SAMU-1
 
 ---
 
----
-
 ## 🗃️ Dataset
 
 ### Solicitações de Atendimento SAMU
@@ -157,12 +155,9 @@ Implantação / Atualização Recorrente
 </details>
 
 
-<<<<<<< Updated upstream
-
 ## 💡 Observações
 
 > Projeto desenvolvido na disciplina de **AVD (Análise e Visualização de Dados)** da **CESAR School**.
 
 > Os dados utilizados são provenientes do Portal de Dados Abertos da Prefeitura do Recife e são utilizados para fins acadêmicos de análise e visualização de dados.
 
-=======
