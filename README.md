@@ -133,7 +133,7 @@ Implantação / Atualização Recorrente
   <br/>
 
   ## Documentação
-  [Entendimento de Negócio e Dados](./Documentação/Documentação_AVD.pdf)
+  [Entendimento de Negócio e Dados](./Documentação/Planejamento-CRISP-DM.pdf)
 
   <br/>
 </details>
@@ -157,6 +157,7 @@ Implantação / Atualização Recorrente
 </details>
 
 
+<<<<<<< Updated upstream
 
 ## 💡 Observações
 
@@ -164,3 +165,4 @@ Implantação / Atualização Recorrente
 
 > Os dados utilizados são provenientes do Portal de Dados Abertos da Prefeitura do Recife e são utilizados para fins acadêmicos de análise e visualização de dados.
 
+=======
