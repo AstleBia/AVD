@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard & Relatório - Aula 05 | Medidas de Dispersão (IBGE)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- CSS Estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header & Navigation Bar -->
+    <header class="header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-icon">AVD</div>
+                <div class="brand-text">
+                    <h1>Taxa de Desocupação — Aula 05</h1>
+                    <p>Medidas de Dispersão e Forma • PNAD Contínua (IBGE)</p>
+                </div>
+            </div>
+            
+            <nav class="nav-tabs">
+                <button class="tab-btn active" data-tab="tab-dashboard">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    Dashboard Interativo
+                </button>
+                <button class="tab-btn" data-tab="tab-exemplos">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Exemplos 1 ao 5
+                </button>
+                <button class="tab-btn" data-tab="tab-relatorio">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Relatório Analítico
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+
+        <!-- TAB 1: DASHBOARD INTERATIVO -->
+        <section id="tab-dashboard" class="tab-content active">
+            
+            <!-- KPI Cards Grid -->
+            <div class="kpi-grid">
+                <div class="kpi-card total">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Variância Total (σ²)</span>
+                        <span class="kpi-badge">Exemplo 1</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-var-total">11.1491</div>
+                    <div class="kpi-sub">
+                        <span>Desvio Padrão: <strong id="kpi-std-total">3.3390%</strong></span>
+                    </div>
+                </div>
+
+                <div class="kpi-card mulheres">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Variância Mulheres (σ²)</span>
+                        <span class="kpi-badge">Exemplo 1</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-var-mulheres">11.7598</div>
+                    <div class="kpi-sub">
+                        <span>Desvio Padrão: <strong id="kpi-std-mulheres">3.4293%</strong></span>
+                    </div>
+                </div>
+
+                <div class="kpi-card homens">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Variância Homens (σ²)</span>
+                        <span class="kpi-badge">Exemplo 1</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-var-homens">11.3397</div>
+                    <div class="kpi-sub">
+                        <span>Desvio Padrão: <strong id="kpi-std-homens">3.3674%</strong></span>
+                    </div>
+                </div>
+
+                <div class="kpi-card total">
+                    <div class="kpi-header">
+                        <span class="kpi-title">Excesso de Curtose</span>
+                        <span class="kpi-badge">Exemplo 5</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-kurt-total">-1.2084</div>
+                    <div class="kpi-sub">
+                        <span>Formato: <strong style="color:#10b981;">Platicúrtica</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <!-- Line Chart: Time Series -->
+                <div class="chart-card col-12">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Série Temporal da Taxa de Desocupação (2012 - 2026)</h2>
+                        <span class="kpi-sub">Fonte: PNAD Contínua - IBGE</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartTimeSeries"></canvas>
+                    </div>
+                </div>
+
+                <!-- Bar Chart: Dispersion Comparison -->
+                <div class="chart-card col-6">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Medidas de Variabilidade por Sexo</h2>
+                        <span class="kpi-badge">Exemplos 1, 2 e 3</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartDispersion"></canvas>
+                    </div>
+                </div>
+
+                <!-- Bar Chart: Shape Metrics -->
+                <div class="chart-card col-6">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Forma da Distribuição (Assimetria vs Curtose)</h2>
+                        <span class="kpi-badge">Exemplos 4 e 5</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartShape"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Data Table -->
+            <div class="chart-card col-12">
+                <div class="chart-header">
+                    <h2 class="chart-title">Histórico de Dados por Trimestre Móvel</h2>
+                    <input type="text" id="tableSearch" placeholder="Buscar por ano ou período (ex: 2023)..." style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.85rem; outline: none;">
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="metrics-comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Período</th>
+                                <th>Taxa Total (%)</th>
+                                <th>Mulheres (%)</th>
+                                <th>Homens (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody">
+                            <!-- Injetado dinamicamente pelo script.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- TAB 2: EXEMPLOS 1 AO 5 -->
+        <section id="tab-exemplos" class="tab-content">
+            <div class="examples-grid">
+                
+                <!-- Exemplo 1 -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <div class="example-number">1</div>
+                        <h2 class="example-title">Exemplo 1: Determine a variância da taxa de desocupação para cada categoria</h2>
+                    </div>
+                    <p class="example-desc">
+                        A **variância ($\sigma^2$)** mede a dispersão quadrática dos valores em relação à média. Quanto maior a variância, mais afastados os dados estão do centro.
+                    </p>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #a5b4fc; margin-bottom: 1rem;">
+                        # Código Python:<br>
+                        df_filtrado['total'].var()<br>
+                        df_filtrado['mulheres'].var()<br>
+                        df_filtrado['homens'].var()
+                    </div>
+                </div>
+
+                <!-- Exemplo 2 -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <div class="example-number">2</div>
+                        <h2 class="example-title">Exemplo 2: Calcule o desvio padrão da taxa de desocupação para cada categoria</h2>
+                    </div>
+                    <p class="example-desc">
+                        O **desvio padrão ($s$)** é a raiz quadrada positiva da variância. É a medida preferida pois é expressa na mesma unidade percentual (%) dos dados originais.
+                    </p>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #f472b6; margin-bottom: 1rem;">
+                        # Código Python:<br>
+                        df_filtrado['total'].std()<br>
+                        df_filtrado['mulheres'].std()<br>
+                        df_filtrado['homens'].std()
+                    </div>
+                </div>
+
+                <!-- Exemplo 3 -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <div class="example-number">3</div>
+                        <h2 class="example-title">Exemplo 3: Calcule a amplitude da taxa de desocupação para cada categoria</h2>
+                    </div>
+                    <p class="example-desc">
+                        A **amplitude** é a diferença direta entre o maior e o menor valor do conjunto ($Max - Min$). Oferece uma visão rápida da extensão total da variação.
+                    </p>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #38bdf8; margin-bottom: 1rem;">
+                        # Código Python:<br>
+                        ampl_total = df_filtrado['total'].max() - df_filtrado['total'].min()
+                    </div>
+                </div>
+
+                <!-- Exemplo 4 -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <div class="example-number">4</div>
+                        <h2 class="example-title">Exemplo 4: Determine o coeficiente de assimetria para taxa de desocupação em cada categoria</h2>
+                    </div>
+                    <p class="example-desc">
+                        A **assimetria (*skewness*)** quantifica o desvio em relação à simetria. Valores positivos indicam cauda mais longa à direita, enquanto valores próximos de 0 indicam simetria.
+                    </p>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #fbbf24; margin-bottom: 1rem;">
+                        # Código Python:<br>
+                        df_filtrado['total'].skew()
+                    </div>
+                </div>
+
+                <!-- Exemplo 5 -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <div class="example-number">5</div>
+                        <h2 class="example-title">Exemplo 5: Determine a curtose para taxa de desocupação em cada categoria</h2>
+                    </div>
+                    <p class="example-desc">
+                        A **curtose** indica o grau de achatamento do pico da distribuição em relação à Normal (excesso de curtose no Pandas). Valores negativos indicam uma distribuição **Platicúrtica** (pico achatado e caudas curtas).
+                    </p>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #34d399; margin-bottom: 1rem;">
+                        # Código Python:<br>
+                        df_filtrado['total'].kurtosis()
+                    </div>
+                </div>
+
+                <!-- Resumo Geral em Tabela -->
+                <div class="chart-card col-12">
+                    <h2 class="chart-title" style="margin-bottom: 1rem;">Tabela Resumo dos Resultados dos 5 Exemplos</h2>
+                    <table class="metrics-comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Categoria</th>
+                                <th>Exemplo 1: Variância (σ²)</th>
+                                <th>Exemplo 2: Desvio Padrão (s)</th>
+                                <th>Exemplo 3: Amplitude (%)</th>
+                                <th>Exemplo 4: Assimetria</th>
+                                <th>Exemplo 5: Curtose</th>
+                            </tr>
+                        </thead>
+                        <tbody id="examplesTableBody">
+                            <!-- Injetado pelo script.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 3: RELATÓRIO ANALÍTICO -->
+        <section id="tab-relatorio" class="tab-content">
+            <div class="report-container">
+                <header style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 2rem;">
+                    <h1 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 0.5rem;">Relatório de Análise Estatística: Medidas de Dispersão e Variabilidade</h1>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Disciplina: Análise e Visualização de Dados • Estruturado conforme as regras de aula (5 Seções)</p>
+                </header>
+
+                <div class="report-section">
+                    <h2>1. Introdução: Objetivos e Perguntas de Pesquisa</h2>
+                    <p>
+                        A análise da taxa de desocupação é vital para entender as flutuações do mercado de trabalho. Enquanto as medidas de tendência central fornecem a síntese dos dados, as **medidas de variabilidade** (variância, desvio padrão e amplitude) e de **forma** (assimetria e curtose) revelam a volatilidade e o comportamento estrutural da distribuição.
+                    </p>
+                    <div class="report-alert">
+                        <strong>Perguntas Norteadoras:</strong><br>
+                        1. Qual é a disparidade na dispersão das taxas entre homens e mulheres?<br>
+                        2. A eliminação dos dados nulos do período de pandemia altera a distribuição estatística?<br>
+                        3. A taxa de desocupação segue uma distribuição Normal?
+                    </div>
+                </div>
+
+                <div class="report-section">
+                    <h2>2. Metodologia: Coleta e Processamento (ETL)</h2>
+                    <p>
+                        Os dados foram coletados diretamente da API de Agregados do IBGE (PNAD Contínua - Agregado 4093, Variável 4099). O processo de ETL envolveu:
+                    </p>
+                    <ul style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem;">
+                        <li><strong>Tratamento de Nulos:</strong> Substituição dos caracteres <code>'...'</code> por 0.0 e filtragem dos períodos sem divulgação.</li>
+                        <li><strong>Filtragem Válida:</strong> Formação do conjunto <code>df_filtrado</code> com 50 trimestres válidos (201201 a 202602).</li>
+                        <li><strong>Tipagem:</strong> Conversão dos vetores em números de ponto flutuante <code>float64</code> para garantir precisão nos momentos estatísticos.</li>
+                    </ul>
+                </div>
+
+                <div class="report-section">
+                    <h2>3. Análise Exploratória e Inspeção Inicial</h2>
+                    <p>
+                        O dataset filtrado engloba 50 trimestres móveis. A média da taxa de desocupação total foi de <strong>12.35%</strong>, a mediana foi de <strong>11.80%</strong> e as modas principais foram 9.20% e 14.20%. Destaca-se a média feminina de <strong>14.51%</strong> contra a masculina de <strong>10.77%</strong>.
+                    </p>
+                </div>
+
+                <div class="report-section">
+                    <h2>4. Análise Estatística Quantitativa (Exemplos 1 a 5)</h2>
+                    <p>
+                        A aplicação das rotinas estatísticas sobre <code>df_filtrado</code> forneceu as seguintes métricas exatas:
+                    </p>
+                    <ul style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8;">
+                        <li><strong>Exemplo 1 (Variância):</strong> Total = 11.1491 %², Mulheres = 11.7598 %², Homens = 11.3397 %².</li>
+                        <li><strong>Exemplo 2 (Desvio Padrão):</strong> Total = 3.3390%, Mulheres = 3.4293%, Homens = 3.3674%.</li>
+                        <li><strong>Exemplo 3 (Amplitude):</strong> Total = 11.60% (7.40% a 19.00%), Mulheres = 12.10% (9.10% a 21.20%), Homens = 11.30% (6.10% a 17.40%).</li>
+                        <li><strong>Exemplo 4 (Assimetria):</strong> Total = 0.2771 (Leve assimetria positiva), Mulheres = 0.0706 (Praticamente simétrica), Homens = 0.4724 (Moderada assimetria positiva).</li>
+                        <li><strong>Exemplo 5 (Curtose):</strong> Total = -1.2084, Mulheres = -1.2702, Homens = -0.9643. Todas classificadas como <strong>Platicúrticas</strong> (picos achatados e caudas mais leves que a distribuição normal).</li>
+                    </ul>
+                </div>
+
+                <div class="report-section">
+                    <h2>5. Interpretação dos Resultados e Conclusão</h2>
+                    <p>
+                        1. **Desigualdade Estrutural:** As mulheres possuem maior média de desocupação (14.51%), maior pico histórico (21.20%) e maior desvio padrão (3.43%), indicando menor estabilidade no mercado de trabalho.<br>
+                        2. **Formato Platicúrtico:** O excesso negativo de curtose em todas as categorias confirma que os valores variam de forma ampla e distribuída entre crises e recuperações econômicas, sem se concentrarem exclusivamente em torno da média.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Desenvolvido para a disciplina de Análise e Visualização de Dados • CESAR School 2026</p>
+    </footer>
+
+    <!-- JS Script -->
+    <script src="script.js"></script>
+</body>
+</html>

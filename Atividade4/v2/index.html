@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visão Geral - Dashboard Chalkboard V2</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="dashboard-board">
+        
+        <!-- Header Bar (idêntico ao protótipo da imagem) -->
+        <header class="board-header">
+            <div class="header-dropdown">
+                <span>Visão Geral</span>
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+
+            <div class="header-controls">
+                <div class="date-badge">
+                    <span>📅 01/01/2012 - 30/06/2026</span>
+                </div>
+                <button class="icon-btn" title="Notificações">🔔</button>
+                <button class="icon-btn" title="Mais opções">⋮</button>
+            </div>
+        </header>
+
+        <!-- Top 4 KPI Cards (idênticos à foto de inspiração) -->
+        <div class="kpi-row">
+            
+            <!-- Card 1 -->
+            <div class="chalk-card">
+                <div class="card-title-wrap">
+                    <span class="card-icon">💲</span>
+                    <span class="card-label">Variância (σ²)</span>
+                </div>
+                <div class="card-main-val" id="val-variancia">11.15</div>
+                <div class="card-trend">
+                    <span>▲ 12,35% vs média</span>
+                </div>
+                <div style="height: 40px;">
+                    <canvas id="spark1" class="sparkline-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="chalk-card">
+                <div class="card-title-wrap">
+                    <span class="card-icon">📈</span>
+                    <span class="card-label">Desvio Padrão (s)</span>
+                </div>
+                <div class="card-main-val" id="val-desvio">3.34%</div>
+                <div class="card-trend">
+                    <span>▲ 3,43% em mulheres</span>
+                </div>
+                <div style="height: 40px;">
+                    <canvas id="spark2" class="sparkline-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="chalk-card">
+                <div class="card-title-wrap">
+                    <span class="card-icon">👤</span>
+                    <span class="card-label">Amplitude Total</span>
+                </div>
+                <div class="card-main-val" id="val-amplitude">11.60%</div>
+                <div class="card-trend">
+                    <span>▲ Mín 7,4% / Máx 19,0%</span>
+                </div>
+                <div style="height: 40px;">
+                    <canvas id="spark3" class="sparkline-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="chalk-card">
+                <div class="card-title-wrap">
+                    <span class="card-icon">🛒</span>
+                    <span class="card-label">Curtose (Forma)</span>
+                </div>
+                <div class="card-main-val">-1.21</div>
+                <div class="card-trend" style="color: #a3e635;">
+                    <span>● Classificação: Platicúrtica</span>
+                </div>
+                <div style="height: 40px;">
+                    <canvas id="spark4" class="sparkline-canvas"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Middle Section: Main Chart & Donut (idêntico à foto de inspiração) -->
+        <div class="middle-row">
+            
+            <!-- Left: Faturamento / Taxa ao longo do tempo -->
+            <div class="chalk-card">
+                <div class="chart-title-hand">
+                    <span>Taxa ao longo do tempo (2012 - 2026)</span>
+                    <span style="font-size: 0.85rem; color: #fb923c;">━ Taxa Total (%)</span>
+                </div>
+                <div class="main-line-container">
+                    <canvas id="mainLineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Right: Distribuição por canal / categoria -->
+            <div class="chalk-card">
+                <div class="chart-title-hand">
+                    <span>Distribuição por categoria</span>
+                </div>
+                <div class="donut-flex-layout">
+                    <div class="donut-chart-box">
+                        <canvas id="donutChart"></canvas>
+                    </div>
+                    <div class="donut-legend-list">
+                        <div class="legend-item">
+                            <span><span class="legend-color-dot" style="background:#e06c53;"></span> Mulheres</span>
+                            <strong>42%</strong>
+                        </div>
+                        <div class="legend-item">
+                            <span><span class="legend-color-dot" style="background:#a3e635;"></span> Homens</span>
+                            <strong>35%</strong>
+                        </div>
+                        <div class="legend-item">
+                            <span><span class="legend-color-dot" style="background:#c084fc;"></span> Total</span>
+                            <strong>23%</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Section: Performance List & Funnel (idêntico à foto de inspiração) -->
+        <div class="bottom-row">
+            
+            <!-- Left: Desempenho por produto / categoria -->
+            <div class="chalk-card">
+                <div class="chart-title-hand">
+                    <span>Desempenho por categoria</span>
+                </div>
+                <table class="perf-table">
+                    <thead>
+                        <tr>
+                            <th>Categoria</th>
+                            <th>Média Taxa</th>
+                            <th>Variação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="perfTableBody">
+                        <!-- Injetado via script.js -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Right: Conversão por etapa do funil / Forma da Distribuição -->
+            <div class="chalk-card">
+                <div class="chart-title-hand">
+                    <span>Estágios da Distribuição (Funil)</span>
+                </div>
+                <div class="funnel-container">
+                    
+                    <div class="funnel-stage">
+                        <div class="funnel-shape-wrap">
+                            <div class="funnel-trapezoid">Total PNAD</div>
+                        </div>
+                        <div class="funnel-meta">
+                            <span class="funnel-label">Amostra</span>
+                            <span class="funnel-values"><strong>50 trimestres</strong> (100%)</span>
+                        </div>
+                    </div>
+
+                    <div class="funnel-stage">
+                        <div class="funnel-shape-wrap">
+                            <div class="funnel-trapezoid">Mulheres</div>
+                        </div>
+                        <div class="funnel-meta">
+                            <span class="funnel-label">Média</span>
+                            <span class="funnel-values"><strong>14,51%</strong> (58%)</span>
+                        </div>
+                    </div>
+
+                    <div class="funnel-stage">
+                        <div class="funnel-shape-wrap">
+                            <div class="funnel-trapezoid">Homens</div>
+                        </div>
+                        <div class="funnel-meta">
+                            <span class="funnel-label">Média</span>
+                            <span class="funnel-values"><strong>10,77%</strong> (42%)</span>
+                        </div>
+                    </div>
+
+                    <div class="funnel-stage">
+                        <div class="funnel-shape-wrap">
+                            <div class="funnel-trapezoid">Platicúrtica</div>
+                        </div>
+                        <div class="funnel-meta">
+                            <span class="funnel-label">Curtose</span>
+                            <span class="funnel-values"><strong>-1,21</strong> (Excesso)</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JS Script -->
+    <script src="script.js"></script>
+</body>
+</html>
