@@ -10,7 +10,7 @@ O projeto utiliza uma base pública de **Solicitações de Atendimento do SAMU-1
 
 | Nome | Funções | Email |
 |------|---------|-------|
-| Beatriz Astle | Analista de Dados | [abaa@cesar.school](mailto:abaa@cesar.school) |
+| Ana Beatriz Astle | Analista de Dados | [abaa@cesar.school](mailto:abaa@cesar.school) |
 | João Astle | Analista de Dados | [jvaa@cesar.school](mailto:jvaa@cesar.school) |
 | Gabriel Abreu Souza | Analista de Dados | [gasb2@cesar.school](mailto:gasb2@cesar.school) |
 | Rafael Lyra Costa | Analista de Dados | [rlc3@cesar.school](mailto:rlc3@cesar.school) |
