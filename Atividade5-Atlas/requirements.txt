@@ -1,0 +1,17 @@
+branca==0.8.2
+certifi==2026.7.22
+charset-normalizer==3.5.1
+dnspython==2.8.0
+folium==0.20.0
+idna==3.20
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+numpy==2.5.3
+pandas==3.0.6
+pymongo==4.18.1
+python-dateutil==2.9.0.post0
+python-dotenv==1.2.3
+requests==2.34.2
+six==1.17.0
+urllib3==2.8.0
+xyzservices==2026.9.1
